@@ -1,19 +1,38 @@
 
-function CuentaBancaria(titular, saldoInicial) {
+function CuentaBancaria(titular, saldoInicial = 0) {
     this.titular = titular;
-    this.saldoInicial = saldoInicial;
+    this.saldo = saldoInicial >= 0 ? saldoInicial : 0;
 }
 
 CuentaBancaria.prototype.depositar = function (monto) {
-    console.log('Ingresando deposito..');
+
+    if (monto < 0) {
+        console.error('El monto a depositar no puede ser negativo.');
+        return false;
+    }
+
+    this.saldoInicial += monto;
+    return true;
 }
 
 CuentaBancaria.prototype.extraer = function (monto) {
-    console.log('Extrayendo..');
+
+    if (monto < 0) {
+        console.error('El monto a extraer no puede ser negativo.');
+        return false;
+    }
+
+    if (monto > this.saldoInicial) {
+        console.error('Fondos insuficientes.');
+        return false;
+    }
+
+    this.saldoInicial -= monto;
+    return true;
 }
 
 CuentaBancaria.prototype.consultarSaldo = function () {
-    console.log('Saldo actual: $...');
+    return `Saldo actual: $${this.saldoInicial}`;
 }
 
 const cuentaBancaria = new CuentaBancaria('Cristian', 2500)
