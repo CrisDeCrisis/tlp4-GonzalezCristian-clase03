@@ -8,7 +8,7 @@ class CuentaBancaria {
     }
 
     get saldo() {
-        return this.#saldo;
+        return `Saldo actual: $${this.#saldo}`;
     }
 
     set saldo(nuevoSaldo) {
@@ -20,31 +20,33 @@ class CuentaBancaria {
         this.#saldo = nuevoSaldo;
     }
 
-    depositar(cantidad) {
+    SetDepositar(cantidad) {
 
         if (cantidad < 0) {
-            console.error("El monto a depositar no puede ser negativo.");
-            return false;
+            console.error('Transacción fallida!');
+            return 'El monto a depositar no puede ser negativo.';
         }
 
         this.#saldo += cantidad;
-        return true;
+        console.info('Transacción realizada!')
+        return `Saldo actual: $${this.#saldo}`;
     }
 
-    extraer(cantidad) {
+    SetExtraer(cantidad) {
 
         if (cantidad < 0) {
-            console.error("El monto a extraer no puede ser negativo.");
-            return false;
+            console.error('Transacción fallida!');
+            return 'El monto a extraer no puede ser negativo.';
         }
 
         if (cantidad > this.#saldo) {
-            console.error("Fondos insuficientes para realizar la extracción.");
-            return false;
+            console.error('Transacción fallida!');
+            return 'Fondos insuficientes para realizar la extracción.';
         }
 
         this.#saldo -= cantidad;
-        return true;
+        console.info('Transacción realizada!');
+        return `Saldo actual: $${this.#saldo}`;
     }
 
 }
